@@ -24,4 +24,9 @@ public class WordImplService implements WordService {
         words.forEach(w -> w.setResult(result));
         wordRepository.saveAll(words);
     }
+
+    @Override
+    public void clearWords(List<Result> oldResults) {
+        oldResults.forEach(r -> wordRepository.deleteAll(wordRepository.findAllByResult(r)));
+    }
 }

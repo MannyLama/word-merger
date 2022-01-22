@@ -9,4 +9,6 @@ public interface ResultService {
     Optional<Result> findResultByChecksum(String checkSum, AlgorithmeId algorithmeId);
 
     Result createNewResult(AlgorithmeId algorithmeId, String checkSum);
+
+    void clearOldResults();
 }

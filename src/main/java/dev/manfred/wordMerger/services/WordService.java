@@ -9,4 +9,6 @@ public interface WordService{
     List<Word> getAllWordOfAResult(Result result);
 
     void saveAll(Result result, List<Word> words);
+
+    void clearWords(List<Result> oldResults);
 }
