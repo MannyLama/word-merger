@@ -1,7 +1,7 @@
 package dev.manfred.wordMerger.exceptions;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
-public class AlgorithmeException extends RuntimeException{
+public class AlgorithmeException extends RuntimeException {
+    public AlgorithmeException() {
+        super("AlgorithmeException");
+    }
 }

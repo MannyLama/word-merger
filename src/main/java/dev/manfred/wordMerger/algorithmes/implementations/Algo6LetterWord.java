@@ -3,11 +3,13 @@ package dev.manfred.wordMerger.algorithmes.implementations;
 import dev.manfred.wordMerger.algorithmes.Algorithme;
 import dev.manfred.wordMerger.domain.Word;
 import org.hibernate.cfg.NotYetImplementedException;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+@Component
 public class Algo6LetterWord implements Algorithme {
 
     @Override
@@ -19,13 +21,20 @@ public class Algo6LetterWord implements Algorithme {
             for (int i = 1; i < 4; i++) {
                 var first = s.substring(0, i);
                 var second = s.substring(i);
-                if (checkWords(first, second, s))
+                if (containsWord(first, stringsByLength) && containsWord(second, stringsByLength) && checkWords(s, first, second))
                     results.put(s, Word.builder().parts(List.of(first, second)).result(s).build());
             }
-
         });
-
+        results.values().forEach(System.out::println);
         return new ArrayList<>(results.values());
+    }
+
+    private boolean containsWord(String part, Map<Integer, Set<String>> stringsByLength) {
+        try {
+            return stringsByLength.get(part.length()).contains(part);
+        } catch (NullPointerException ex) {
+            return false;
+        }
     }
 
     /**

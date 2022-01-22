@@ -4,6 +4,7 @@ import dev.manfred.wordMerger.algorithmes.Algorithme;
 import dev.manfred.wordMerger.domain.Word;
 import dev.manfred.wordMerger.services.Merger;
 import dev.manfred.wordMerger.utils.FileConverter;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,12 +12,8 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class MergerImplService implements Merger {
-    private final List<Algorithme> algorithmes;
-
-    public MergerImplService(List<Algorithme> algorithmes) {
-        this.algorithmes = algorithmes;
-    }
 
     @Override
     public List<Word> mergeWords(Algorithme algo, MultipartFile input) {
