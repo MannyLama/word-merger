@@ -6,6 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-public interface Merger {
-    List<Word> mergeWords(Algorithme algo, MultipartFile input);
+public interface GeneratorService {
+    List<Word> getResult(Algorithme algo, MultipartFile input);
 }

@@ -2,7 +2,7 @@ package dev.manfred.wordMerger.web.controllers;
 
 import dev.manfred.wordMerger.algorithmes.Algorithme;
 import dev.manfred.wordMerger.exceptions.AlgorithmeException;
-import dev.manfred.wordMerger.services.implementations.MergerImplService;
+import dev.manfred.wordMerger.services.implementations.GeneratorImplService;
 import dev.manfred.wordMerger.validation.FileValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RequestMapping("/api")
 public class MergerController {
-    private final MergerImplService mergerService;
+    private final GeneratorImplService mergerService;
     private final List<FileValidator> fileValidators;
     private final List<Algorithme> algorithms;
 
@@ -33,6 +33,6 @@ public class MergerController {
             return new ResponseEntity<>("File did exceed the limits.", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(mergerService.mergeWords(algorithms.stream().findFirst().orElseThrow(AlgorithmeException::new), file), HttpStatus.OK);
+        return new ResponseEntity<>(mergerService.getResult(algorithms.stream().findFirst().orElseThrow(AlgorithmeException::new), file), HttpStatus.OK);
     }
 }

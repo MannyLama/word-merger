@@ -1,7 +1,9 @@
 package dev.manfred.wordMerger.algorithmes.implementations;
 
 import dev.manfred.wordMerger.algorithmes.Algorithme;
+import dev.manfred.wordMerger.algorithmes.AlgorithmeId;
 import dev.manfred.wordMerger.domain.Word;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +12,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Component
+@Slf4j
 public class Algo6LetterWord implements Algorithme {
+
+    @Override
+    public AlgorithmeId getAlgorithmeId() {
+        return AlgorithmeId.SIX_WORD_ALGO;
+    }
 
     @Override
     public List<Word> getResult(List<String> input) {
@@ -19,16 +27,24 @@ public class Algo6LetterWord implements Algorithme {
 
         stringsByLength.get(6).parallelStream().forEach(s -> {
             for (int i = 1; i < 4; i++) {
-                var first = s.substring(0, i);
-                var second = s.substring(i);
-                if (containsWord(first, stringsByLength) && containsWord(second, stringsByLength) && checkWords(s, first, second))
-                    results.put(s, Word.builder().parts(List.of(first, second)).result(s).build());
+                var a = s.substring(0, i); //first part
+                var b = s.substring(i); //second part
+                if (containsWord(a, stringsByLength) && containsWord(b, stringsByLength) && checkWords(s, a, b))
+                    results.put(s, Word.builder().parts(List.of(a, b)).solution(s).build());
             }
         });
-        results.values().forEach(System.out::println);
+
+        results.values().forEach(r -> log.info(r.toString()));
         return new ArrayList<>(results.values());
     }
 
+    /**
+     * Check if the given part is present in the list of strings by length
+     *
+     * @param part            a given string to be searched.
+     * @param stringsByLength a Map with a Set where as strings are diveded by string length in the map
+     * @return true if a part is present in list of strings by length
+     */
     private boolean containsWord(String part, Map<Integer, Set<String>> stringsByLength) {
         try {
             return stringsByLength.get(part.length()).contains(part);
@@ -50,7 +66,7 @@ public class Algo6LetterWord implements Algorithme {
         return switch (words.length) {
             case 1 -> words[0].equals(result);
             case 2 -> (words[0] + words[1]).equals(result) || (words[1] + words[0]).equals(result);
-            default -> throw new NotYetImplementedException("This many optiosn is not yet implemneted");
+            default -> throw new NotYetImplementedException("This many options is not yet implemented");
         };
     }
 }
