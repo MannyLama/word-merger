@@ -1,6 +1,6 @@
 package dev.manfred.wordMerger.services.implementations;
 
-import dev.manfred.wordMerger.algorithmes.Algorithme;
+import dev.manfred.wordMerger.algorithmes.Algorithm;
 import dev.manfred.wordMerger.domain.Result;
 import dev.manfred.wordMerger.domain.Word;
 import dev.manfred.wordMerger.services.GeneratorService;
@@ -23,7 +23,7 @@ public class GeneratorImplService implements GeneratorService {
     private final WordService wordService;
 
     @Override
-    public List<Word> getResult(Algorithme algo, MultipartFile input) {
+    public List<Word> getResult(Algorithm algo, MultipartFile input) {
         var checkSum = FileHelper.getMD5CheckSum(input);
         var oldResult = getOldResult(algo, checkSum);
         if (!oldResult.isEmpty()) return oldResult;
@@ -31,22 +31,22 @@ public class GeneratorImplService implements GeneratorService {
         return computeAndSaveResult(algo, input, checkSum);
     }
 
-    private List<Word> getOldResult(Algorithme algo, String checkSum) {
+    private List<Word> getOldResult(Algorithm algo, String checkSum) {
         Optional<Result> oldResult = resultService.findResultByChecksum(checkSum, algo.getAlgorithmeId());
         if (oldResult.isEmpty())
             return new ArrayList<>();
         return wordService.getAllWordOfAResult(oldResult.get());
     }
 
-    private List<Word> computeAndSaveResult(Algorithme algo, MultipartFile file, String checkSum) {
+    private List<Word> computeAndSaveResult(Algorithm algo, MultipartFile file, String checkSum) {
         try {
             List<String> lines = FileHelper.convertFileToList(file);
             var result = resultService.createNewResult(algo.getAlgorithmeId(), checkSum);
             var words = algo.getResult(lines);
             wordService.saveAll(result, words);
+            return words;
         } catch (IOException e) {
             return new ArrayList<>();
         }
-        return new ArrayList<>();
     }
 }

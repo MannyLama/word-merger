@@ -1,6 +1,6 @@
 package dev.manfred.wordMerger.algorithmes;
 
-import dev.manfred.wordMerger.algorithmes.implementations.Algo6LetterWord;
+import dev.manfred.wordMerger.algorithmes.implementations.SixLetterWordAlgo;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -8,13 +8,13 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Algo6LetterWordTest {
-    private final Algo6LetterWord algo = new Algo6LetterWord();
+    private final SixLetterWordAlgo algo = new SixLetterWordAlgo();
 
     @Test
     public void algoTest() {
         var result = algo.getResult(Arrays.asList("fo", "obar", "foobar"));
         assertEquals(1, result.size());
-        assertEquals("foobar", result.stream().findAny().get().getResult());
+        assertEquals("foobar", result.stream().findAny().get().getSolution());
 
         var result2 = algo.getResult(Arrays.asList("not", "obar", "foobar"));
         assertEquals(0, result2.size());

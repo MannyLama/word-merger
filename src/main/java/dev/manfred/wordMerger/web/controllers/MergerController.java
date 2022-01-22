@@ -1,7 +1,7 @@
 package dev.manfred.wordMerger.web.controllers;
 
-import dev.manfred.wordMerger.algorithmes.Algorithme;
-import dev.manfred.wordMerger.exceptions.AlgorithmeException;
+import dev.manfred.wordMerger.algorithmes.Algorithm;
+import dev.manfred.wordMerger.exceptions.AlgorithmException;
 import dev.manfred.wordMerger.services.implementations.GeneratorImplService;
 import dev.manfred.wordMerger.validation.FileValidator;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class MergerController {
     private final GeneratorImplService mergerService;
     private final List<FileValidator> fileValidators;
-    private final List<Algorithme> algorithms;
+    private final List<Algorithm> algorithms;
 
     @PostMapping(path = "/file")
     public ResponseEntity<?> parseFile(@RequestParam("file") MultipartFile file) {
@@ -33,6 +33,6 @@ public class MergerController {
             return new ResponseEntity<>("File did exceed the limits.", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(mergerService.getResult(algorithms.stream().findFirst().orElseThrow(AlgorithmeException::new), file), HttpStatus.OK);
+        return new ResponseEntity<>(mergerService.getResult(algorithms.stream().findFirst().orElseThrow(AlgorithmException::new), file).stream().map(Object::toString).collect(Collectors.joining("\n")), HttpStatus.OK);
     }
 }

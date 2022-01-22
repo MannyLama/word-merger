@@ -1,6 +1,6 @@
 package dev.manfred.wordMerger.algorithmes.implementations;
 
-import dev.manfred.wordMerger.algorithmes.Algorithme;
+import dev.manfred.wordMerger.algorithmes.Algorithm;
 import dev.manfred.wordMerger.algorithmes.AlgorithmeId;
 import dev.manfred.wordMerger.domain.Word;
 import lombok.extern.slf4j.Slf4j;
@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 
 @Component
 @Slf4j
-public class Algo6LetterWord implements Algorithme {
+public class SixLetterWordAlgo implements Algorithm {
 
     @Override
     public AlgorithmeId getAlgorithmeId() {
-        return AlgorithmeId.SIX_WORD_ALGO;
+        return AlgorithmeId.SIX_LETTER_WORD;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Algo6LetterWord implements Algorithme {
             }
         });
 
-        results.values().forEach(r -> log.info(r.toString()));
+        results.values().forEach(r -> log.debug(r.toString()));
         return new ArrayList<>(results.values());
     }
 

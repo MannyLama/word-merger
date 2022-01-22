@@ -4,7 +4,7 @@ import dev.manfred.wordMerger.domain.Word;
 
 import java.util.List;
 
-public interface Algorithme {
+public interface Algorithm {
     AlgorithmeId getAlgorithmeId();
 
     List<Word> getResult(List<String> input);
