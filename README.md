@@ -11,7 +11,7 @@ To use the application you can use ``postman`` or ``curl``
 
 - curl command _(when in project root folder)_
 <br>
-`curl --location --request POST 'http://localhost:8080/api/file' --form 'file=@"src/main/resources/input.txt"'`
+`curl --location --request POST 'http://localhost:8080/api/file' --form 'file=@"src/main/resources/input.txt"' >> output.txt`
 - Postman
 <br>
 create Post call to `localhost:8080/api/file`and add a body with form-data with key `file` and value the file itself.
