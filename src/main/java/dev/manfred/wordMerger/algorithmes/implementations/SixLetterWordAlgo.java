@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class SixLetterWordAlgo implements Algorithm {
 
     @Override
-    public AlgorithmeId getAlgorithmeId() {
+    public AlgorithmeId getAlgorithmId() {
         return AlgorithmeId.SIX_LETTER_WORD;
     }
 

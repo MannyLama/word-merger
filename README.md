@@ -18,7 +18,7 @@ create Post call to `localhost:8080/api/file`and add a body with form-data with 
 
 <br>
 
-_Total time spent on this project approx X hours._
+_Total time spent on this project approx 6 hours._
 
 
 

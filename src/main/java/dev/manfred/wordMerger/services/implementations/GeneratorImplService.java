@@ -32,7 +32,7 @@ public class GeneratorImplService implements GeneratorService {
     }
 
     private List<Word> getOldResult(Algorithm algo, String checkSum) {
-        Optional<Result> oldResult = resultService.findResultByChecksum(checkSum, algo.getAlgorithmeId());
+        Optional<Result> oldResult = resultService.findResultByChecksum(checkSum, algo.getAlgorithmId());
         if (oldResult.isEmpty())
             return new ArrayList<>();
         return wordService.getAllWordOfAResult(oldResult.get());
@@ -41,7 +41,7 @@ public class GeneratorImplService implements GeneratorService {
     private List<Word> computeAndSaveResult(Algorithm algo, MultipartFile file, String checkSum) {
         try {
             List<String> lines = FileHelper.convertFileToList(file);
-            var result = resultService.createNewResult(algo.getAlgorithmeId(), checkSum);
+            var result = resultService.createNewResult(algo.getAlgorithmId(), checkSum);
             var words = algo.getResult(lines);
             wordService.saveAll(result, words);
             return words;
