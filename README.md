@@ -3,18 +3,19 @@
 
 ## How to run application (Docker)
 
-To start application run ``docker compuse build ; docker compose up``
+To start application run ``docker compuse build ; docker compose up`` _(in the root folder of the project)_
 <br>
 <br>
 To use the application you can use ``postman`` or ``curl``
 <br>
 
 - curl command _(when in project root folder)_
-<br>
-`curl --location --request POST 'http://localhost:8080/api/file' --form 'file=@"src/main/resources/input.txt"' >> output.txt`
+
+``curl --location --request POST 'http://localhost:8080/api/file' --form 'file=@"src/main/resources/input.txt"' >> output.txt``
+
 - Postman
-<br>
-create Post call to `localhost:8080/api/file`and add a body with form-data with key `file` and value the file itself.
+
+Create a post call to `localhost:8080/api/file` and add a body with form-data with a key named `file` and as value the file itself.
 
 <br>
 
