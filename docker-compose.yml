@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  word-merger:
+    container_name: word_merger
+    build:
+      dockerfile: Dockerfile
+    image: word-merger:latest
+    ports:
+      - "8080:8080"
