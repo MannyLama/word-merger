@@ -1,13 +1,14 @@
-FROM maven:3.8.4-openjdk-17
-
-ENV APP_HOME=/usr/app/
-WORKDIR $APP_HOME
+FROM maven:3.8.4-openjdk-17 as build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
 
 RUN echo 'Setting environment settings...'
 ENV TZ=Europe/Brussels
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-COPY target/*.jar app.jar
 
+FROM openjdk:17-alpine
+COPY --from=build /home/app/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]

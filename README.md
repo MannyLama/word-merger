@@ -3,7 +3,7 @@
 
 ## How to run application (Docker)
 
-To start application run ``docker compose up``
+To start application run ``docker compuse build ; docker compose up``
 <br>
 <br>
 To use the application you can use ``postman`` or ``curl``
